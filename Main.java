@@ -22,12 +22,19 @@ class Main {
 
     // Get file name to write data to
     Scanner myScanner = new Scanner(System.in);
-    System.out.println("Enter filename: ");
+    System.out.println("Enter filename : ");
     String filename = myScanner.nextLine();
-    myScanner.close();
+    //myScanner.close();
+
+
+    // THIS IS THE OBJECT
+    Output o = new StreamOutput(filename);
+
+    // Store Decorators in key value pairs
+    HashMap<String, OutputDecorator> decorators = new HashMap<String, OutputDecorator>();
+    decorators.put("1", new LineOutput(o));
 
     // Output menu of decorators
-    Scanner menuScanner = new Scanner(System.in);
     System.out.println("Which decorators would you like to apply?\nEnter the numbers (no spaces or commas inbetween numbers)\nof the decorators you would like to apply.");
     System.out.println("*** Decorator Menu ***");
     System.out.println("1 - LineOutput");
@@ -36,18 +43,23 @@ class Main {
     System.out.println("4 - FilterOutput");
 
     // Take user input
-    while (menuScanner.hasNextLine()) {
-        String decoratorSelection = menuScanner.nextLine();
-    };
-    menuScanner.close();
+    //Scanner menuScanner = new Scanner(System.in);
+    System.out.println("\nEnter Decorators : ");
+    String decoratorInput = myScanner.nextLine();
+    myScanner.close();
 
     // Use user input to call decorators
     ArrayList<Integer> decoratorsChosen = new ArrayList<Integer>();
 
-    char[] chars = decoratorSelection.toCharArray();
+    OutputDecorator OP;
+
+    char[] chars = decoratorInput.toCharArray();
     for (char c : chars) {
         if(Character.isDigit(c)) {
             int a = Integer.parseInt(String.valueOf(c));
+            if(c == 1) {
+                // create a "createOutputDecorator" class
+            }
             decoratorsChosen.add(a);
         } else {
             System.out.println("You entered " + c + " which is not a decorator option.");
@@ -57,7 +69,7 @@ class Main {
     System.out.println(decoratorsChosen);
     
     // OutputDecorator o = new LineOutput(new StreamOutput(filename));
-    Output o = new StreamOutput(filename);
+    // Output o = new StreamOutput(filename);
 
     for (int i = 0; i < dataArr.size(); i++) {
         o.writeData(dataArr.get(i));
